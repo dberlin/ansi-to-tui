@@ -31,10 +31,8 @@ pub enum AnsiCode {
     CrossedOut,
     /// Choose primary font
     PrimaryFont,
-    /// Choose alternate font
-    AlternateFont,
-    /// Choose alternate fonts 1-9
-    AlternateFonts(u8), // = 11..19, // from 11 to 19
+    /// Choose alternate fonts 1-19
+    AlternateFont(u8),
     /// Fraktur ? No clue
     Fraktur,
     /// Turn off bold
@@ -84,8 +82,7 @@ impl From<u8> for AnsiCode {
             8 => AnsiCode::Conceal,
             9 => AnsiCode::CrossedOut,
             10 => AnsiCode::PrimaryFont,
-            11 => AnsiCode::AlternateFont,
-            // AnsiCode::// AlternateFont = 11..19, // from 11 to 19
+            11..=19 => AnsiCode::AlternateFont(code),
             20 => AnsiCode::Fraktur,
             21 => AnsiCode::BoldOff,
             22 => AnsiCode::Normal,

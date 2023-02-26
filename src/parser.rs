@@ -65,7 +65,6 @@ impl From<AnsiStates> for tui::style::Style {
                 }
                 AnsiCode::ForegroundColor(color) => style = style.fg(color),
                 AnsiCode::BackgroundColor(color) => style = style.bg(color),
-                AnsiCode::AlternateFonts(_) => (),
                 _ => (),
             }
         }
