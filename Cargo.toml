@@ -8,6 +8,7 @@ keywords = ["ansi", "ascii", "tui", "parser"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/uttarayan21/ansi-to-tui"
+publish=false
 
 [dependencies]
 nom = "7.1.3"
