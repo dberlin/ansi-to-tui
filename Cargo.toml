@@ -8,12 +8,12 @@ keywords = ["ansi", "ascii", "tui", "parser"]
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/uttarayan21/ansi-to-tui"
-publish=false
+publish = false
 
 [dependencies]
 nom = "7.1.3"
 simdutf8 = { version = "0.1.4", optional = true }
-tui = { version = "0.*", git= "https://github.com/tui-rs-revival/ratatui.git", default-features=false }
+ratatui = { version = "0.*", git = "https://github.com/tui-rs-revival/ratatui.git", default-features = false }
 thiserror = "1.0.39"
 
 [dev-dependencies]

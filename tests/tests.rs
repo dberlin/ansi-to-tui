@@ -1,6 +1,6 @@
 // use ansi_to_tui::{ansi_to_text, ansi_to_text_override_style};
 use ansi_to_tui::IntoText;
-use tui::{
+use ratatui::{
     style::{Color, Style},
     text::{Span, Spans, Text},
 };
@@ -158,4 +158,3 @@ fn some_text(s: &'static str) -> Result<Text<'static>, ansi_to_tui::Error> {
         }])],
     })
 }
-

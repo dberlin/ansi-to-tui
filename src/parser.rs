@@ -1,4 +1,5 @@
-use crate::code::AnsiCode;
+use std::str::FromStr;
+
 use nom::{
     branch::alt,
     bytes::complete::*,
@@ -10,11 +11,12 @@ use nom::{
     sequence::tuple,
     IResult, Parser,
 };
-use std::str::FromStr;
-use tui::{
+use ratatui::{
     style::{Color, Modifier, Style},
     text::{Span, Spans, Text},
 };
+
+use crate::code::AnsiCode;
 
 #[derive(Debug, Clone, Copy, Eq, PartialEq)]
 enum ColorType {
@@ -36,7 +38,7 @@ struct AnsiStates {
     pub style: Style,
 }
 
-impl From<AnsiStates> for tui::style::Style {
+impl From<AnsiStates> for ratatui::style::Style {
     fn from(states: AnsiStates) -> Self {
         let mut style = states.style;
         for item in states.items {
