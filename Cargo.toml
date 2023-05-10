@@ -17,7 +17,7 @@ ratatui = { version = "0.*", git = "https://github.com/tui-rs-revival/ratatui.gi
 thiserror = "1.0.40"
 
 [dev-dependencies]
-anyhow = "1.0.70"
+anyhow = "1.0.71"
 
 [features]
 simd = ["simdutf8"]
