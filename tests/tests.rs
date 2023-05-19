@@ -2,7 +2,7 @@
 use ansi_to_tui::IntoText;
 use ratatui::{
     style::{Color, Style},
-    text::{Span, Spans, Text},
+    text::{Line, Span, Text},
 };
 
 // #[test]
@@ -46,7 +46,7 @@ fn test_unicode() {
 #[test]
 fn test_ascii_rgb() {
     let bytes: Vec<u8> = b"\x1b[38;2;100;100;100mAAABBB".to_vec();
-    let output = Ok(Text::from(Spans::from(Span::styled(
+    let output = Ok(Text::from(Line::from(Span::styled(
         "AAABBB",
         Style {
             fg: Some(Color::Rgb(100, 100, 100)),
@@ -66,14 +66,14 @@ fn test_ascii_rgb() {
 fn test_ascii_newlines() {
     let bytes = "LINE_1\n\n\n\n\n\n\nLINE_8".as_bytes().to_vec();
     let output = Ok(Text::from(vec![
-        Spans::from(Span::raw("LINE_1")),
-        Spans::from(Span::raw("")),
-        Spans::from(Span::raw("")),
-        Spans::from(Span::raw("")),
-        Spans::from(Span::raw("")),
-        Spans::from(Span::raw("")),
-        Spans::from(Span::raw("")),
-        Spans::from(Span::raw("LINE_8")),
+        Line::from(Span::raw("LINE_1")),
+        Line::from(Span::raw("")),
+        Line::from(Span::raw("")),
+        Line::from(Span::raw("")),
+        Line::from(Span::raw("")),
+        Line::from(Span::raw("")),
+        Line::from(Span::raw("")),
+        Line::from(Span::raw("LINE_8")),
     ]));
 
     // println!("{:#?}", bytes.into_text());
@@ -121,7 +121,7 @@ fn test_ascii_newlines() {
 fn test_reset() {
     let string = "\x1b[33mA\x1b[0mB";
     let output = Ok(Text {
-        lines: vec![Spans(vec![
+        lines: vec![Line::from(vec![
             Span::styled(
                 "A",
                 Style {
@@ -143,7 +143,7 @@ fn test_reset() {
 #[test]
 fn test_screen_modes() {
     let bytes: Vec<u8> = b"\x1b[?25hAAABBB".to_vec();
-    let output = Ok(Text::from(Spans::from(Span::styled(
+    let output = Ok(Text::from(Line::from(Span::styled(
         "AAABBB", // or "AAABBB"
         Style::default(),
     ))));
@@ -152,9 +152,9 @@ fn test_screen_modes() {
 
 fn some_text(s: &'static str) -> Result<Text<'static>, ansi_to_tui::Error> {
     Ok(Text {
-        lines: vec![Spans(vec![Span {
+        lines: vec![Line::from(Span {
             content: s.into(),
             style: Default::default(),
-        }])],
+        })],
     })
 }
