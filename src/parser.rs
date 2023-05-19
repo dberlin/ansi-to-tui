@@ -13,7 +13,7 @@ use nom::{
 };
 use ratatui::{
     style::{Color, Modifier, Style},
-    text::{Span, Spans, Text},
+    text::{Line, Span, Text},
 };
 
 use crate::code::AnsiCode;
@@ -88,9 +88,9 @@ pub(crate) fn text(mut s: &[u8]) -> IResult<&[u8], Text<'static>> {
     Ok((s, Text::from(line_spans)))
 }
 
-fn spans(style: Style) -> impl Fn(&[u8]) -> IResult<&[u8], (Spans<'static>, Style)> {
+fn spans(style: Style) -> impl Fn(&[u8]) -> IResult<&[u8], (Line<'static>, Style)> {
     // let style_: Style = Default::default();
-    move |s: &[u8]| -> IResult<&[u8], (Spans<'static>, Style)> {
+    move |s: &[u8]| -> IResult<&[u8], (Line<'static>, Style)> {
         let (s, mut text) = take_while(|c| c != b'\n')(s)?;
         let (s, _) = opt(tag("\n"))(s)?;
         let mut spans = Vec::new();
@@ -105,7 +105,7 @@ fn spans(style: Style) -> impl Fn(&[u8]) -> IResult<&[u8], (Spans<'static>, Styl
             }
         }
 
-        Ok((s, (Spans(spans), last)))
+        Ok((s, (Line::from(spans), last)))
     }
 }
 
